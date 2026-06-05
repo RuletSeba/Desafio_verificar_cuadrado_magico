@@ -24,16 +24,25 @@ def sumar_diagonal_secundaria(matriz):
         suma += matriz[i][len(matriz) -1 -i]
     return suma
 
+def recorrer_filas(matriz, constante_magica):
+    for i in range(len(matriz)):
+        if sumar_fila(matriz, i) != constante_magica:        
+            return False
+
+def recorrer_columnas(matriz, constante_magica):
+    for j in range(len(matriz)):
+        if sumar_columna(matriz, j) != constante_magica:
+            return False
+
 def es_magico(matriz):
     n = len(matriz)
     constante_magica = n * (n ** 2 + 1) // 2
+    
     bandera = True
-    for i in range(len(matriz)):
-        if sumar_fila(matriz, i) != constante_magica:        
-            bandera = False
-    for j in range(len(matriz)):
-        if sumar_columna(matriz, j) != constante_magica:
-            bandera = False
+    if recorrer_filas(matriz, constante_magica) == False:
+        bandera = False
+    if recorrer_columnas(matriz, constante_magica) == False:
+        bandera = False
     if sumar_diagonal_principal(matriz) != constante_magica:
         bandera = False        
     if sumar_diagonal_secundaria(matriz) != constante_magica:
